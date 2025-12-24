@@ -8,6 +8,9 @@ day* create_day(int h, int w, int y, int x, const char *title) {
     win->content = newwin(h-2, w-2, y+1, x+1);
     refresh();
     change_title(win, title);
+
+    wprintw(win->content, "[ ]");
+    wrefresh(win->content);
     return win;
 }
 
@@ -21,6 +24,8 @@ void change_title(day* w, const char* title){
 void redraw_day(day* w){
     werase(w->content);
     if (w->cursor_over)
-        wprintw(w->content, "X");
+        wprintw(w->content, "[X]");
+    else    
+        wprintw(w->content, "[ ]");
     wrefresh(w->content);
 }

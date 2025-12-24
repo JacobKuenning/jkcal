@@ -16,7 +16,6 @@ void draw_month(app* a){
             a->visible_days[x][y] = new_day;   
         }
     }
-    
 }
 
 void manage_input(app* a){
