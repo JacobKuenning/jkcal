@@ -1,0 +1,39 @@
+[
+    { 
+        "day_id" : 1,
+        "american_date" : "1/1/2025",
+        "tasks" :
+            [
+                {
+                "task_name" : "[MATH] Math test",
+                "description" : "study modules 1, 2 and 3"
+                },
+                {
+                "task_name" : "[SCIE] Science test",
+                "description" : "study modules"
+                }
+            ]
+    },
+    { 
+        "day_id" : 3,
+        "american_date" : "1/2/2025",
+        "tasks" :
+            [
+                {
+                "task_name" : "[MATH] History test",
+                "description" : "study modules 1, 2 and 3"
+                }
+            ]
+    },
+    { 
+        "day_id" : 5,
+        "american_date" : "1/2/2025",
+        "tasks" :
+            [
+                {
+                "task_name" : "[MATH] History test",
+                "description" : "study modules 1, 2 and 3"
+                }
+            ]
+    }
+]

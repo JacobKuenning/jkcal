@@ -1,5 +1,6 @@
 #pragma once
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct node {
     void *data; // don't mix stack and heap memory in one linked list!
@@ -37,3 +38,4 @@ void free_nodes(llist* l);
 
 // for llists with heap allocated node data
 void free_data(llist* l);
+

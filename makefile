@@ -7,7 +7,7 @@ OBJ := $(SRC:%.c=$(OBJDIR)/%.o) # obj is all .o files, their names will be the s
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	gcc -o $(TARGET) $(OBJ) -lncursesw
+	gcc -o $(TARGET) $(OBJ) -lcjson
 
 $(OBJDIR)/%.o: %.c # % matches any file name, %< is the dependency, $@ is the target
 	gcc -c $< -o $@
