@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "llist.h"
+#include "timeconv.h"
 
 
 typedef struct {
-    int day_id;
-    llist tasks;
+    date dt;
+    llist* tasks;
 } day;
 
 typedef struct {
@@ -14,7 +15,7 @@ typedef struct {
     char* description;
 } task;
 
-day* create_day(int n);
+day* create_day(int m, int d, int y);
 task* create_task(char* n, char* desc);
 
 // traverse list and print it

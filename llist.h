@@ -13,7 +13,7 @@ typedef struct{
     node* tail;
 } llist;
 
-llist create_llist(void);
+llist* create_llist(void);
 
 // for use within linked list functions, creates a node holding a void*
 node* create_node(void*);

@@ -2,51 +2,53 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>
 #include "llist.h"
 #include "readfile.h"
 #include "timeconv.h"
 #include "day.h"
+#include "textutils.h"
 
 int main(int argc, char** argv){ 
-    time_t t = time(NULL);
-    struct tm* todays_info = localtime(&t);
-    
+    llist* raw_text = create_llist();
+    llist* flags = create_llist();
+    llist* keyed_arguments = create_llist();
 
-    // char* weekDayStr = weekDayToString((weekDay)todays_info->tm_wday);
-    // int day = todays_info->tm_mday;
-    // char* monthStr = monthToString((month)todays_info->tm_mon);
-    // printf("Today is %s, the %d of %s\n", weekDayStr, day, monthStr);
-
-    char* rawFileText = readFile("tasks.json");
-    cJSON* root = cJSON_Parse(rawFileText);
-    cJSON* day_json = NULL;
-
-    llist days = create_llist();
-
-    // traverse array of days
-    cJSON_ArrayForEach(day_json, root){ // for each day in array
-        cJSON* day_id_store = cJSON_GetObjectItemCaseSensitive(day_json, "day_id");
-        int day_id = day_id_store->valueint;
-        day* d = create_day(day_id);
-        
-        cJSON* task_json = NULL;
-        cJSON* tasks_array = cJSON_GetObjectItemCaseSensitive(day_json, "tasks");
-
-        // for each task in day
-        cJSON_ArrayForEach(task_json, tasks_array){
-            cJSON* task_name_store = cJSON_GetObjectItemCaseSensitive(task_json, "task_name");
-            cJSON* task_desc_store = cJSON_GetObjectItemCaseSensitive(task_json, "description");
-
-            char* n = task_name_store->valuestring;
-            char* desc = task_desc_store->valuestring;
-            
-            task* t = create_task(n, desc);
-            push_back(&(d->tasks), t); // add task to day
-        }
-
-        push_back(&days, d); // add day to days
+    // populating argument linked lists
+    for (int i = 1; i < argc; i++){
+        if (argv[i][0] == '-'){
+            char* equals_pos = strstr(argv[i], "=");
+            if (equals_pos){ // if there is an '=' character in string
+                key_value_pair kvp = create_key_value_pair(argv[i]);
+                push_back(keyed_arguments, &kvp);
+            } else push_back(flags, argv[i]);
+        } else push_back(raw_text, argv[i]);
     }
 
-    print(&days);
+    printf("raw text:\n");
+    node* n = raw_text->head;
+    while(n){
+        char* str = n->data;
+        printf("%s\n", str);
+        n = n->next;
+    }
+
+    printf("flags:\n");
+    n = flags->head;
+    while(n){
+        char* str = n->data;
+        printf("%s\n", str);
+        n = n->next;
+    }
+
+    printf("keyed args:\n");
+    n = keyed_arguments->head;
+    while(n){
+        key_value_pair* kvp = n->data;
+        printf("%s, %s\n", kvp->key, kvp->value);
+        n = n->next;
+    }
+
+    llist* master = json_to_llist("tasks.json");
 }
 

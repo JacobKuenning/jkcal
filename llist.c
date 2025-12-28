@@ -1,9 +1,9 @@
 #include "llist.h"
 
-llist create_llist(void){
-    llist l;
-    l.head = NULL;
-    l.tail = NULL;
+llist* create_llist(void){
+    llist* l = malloc(sizeof(*l));
+    l->head = NULL;
+    l->tail = NULL;
     return l;
 }
 

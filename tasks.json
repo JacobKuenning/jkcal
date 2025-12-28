@@ -1,7 +1,8 @@
 [
     { 
-        "day_id" : 1,
-        "american_date" : "1/1/2025",
+        "date_month" : 1,
+        "date_day" : 1,
+        "date_year" : 2025,
         "tasks" :
             [
                 {
@@ -15,8 +16,9 @@
             ]
     },
     { 
-        "day_id" : 3,
-        "american_date" : "1/2/2025",
+        "date_month" : 1,
+        "date_day" : 2,
+        "date_year" : 2025,
         "tasks" :
             [
                 {
@@ -26,8 +28,9 @@
             ]
     },
     { 
-        "day_id" : 5,
-        "american_date" : "1/2/2025",
+        "date_month" : 1,
+        "date_day" : 3,
+        "date_year" : 2025,
         "tasks" :
             [
                 {
