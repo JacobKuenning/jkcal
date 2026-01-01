@@ -58,6 +58,8 @@ date create_date(int m, int d, int y){
 
     dt.date_epoch = date_to_epoch_date(dt);
 
+    sprintf(dt.date_string, "%d/%d/%d", m, d, y);
+
     return dt;
 }
 
@@ -77,6 +79,10 @@ date string_to_date(char* literal){
 
     date d = create_date(array[0], array[1], array[2]);
     return d;
+}
+
+char* date_to_string(date dt){
+
 }
 
 int date_to_epoch_date(date dt){

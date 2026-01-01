@@ -50,3 +50,37 @@ llist* json_to_llist(char* filename){
     }
     return days;
 }
+
+void llist_to_json(llist* ll, char* filename){
+    cJSON* root = cJSON_CreateArray();
+
+    node* n = ll->head;
+    while(n){
+        day* d = n->data;
+        cJSON* day_obj = cJSON_CreateObject();
+        cJSON_AddItemToObject(day_obj, "date_month", cJSON_CreateNumber(d->dt.date_month));
+        cJSON_AddItemToObject(day_obj, "date_day", cJSON_CreateNumber(d->dt.date_day));
+        cJSON_AddItemToObject(day_obj, "date_year", cJSON_CreateNumber(d->dt.date_year));
+        cJSON_AddItemToArray(root, day_obj);
+
+        cJSON* tasks_obj = cJSON_CreateArray();
+        cJSON_AddItemToObject(day_obj, "tasks", tasks_obj);
+        node* n2 = d->tasks->head;
+        while(n2){
+            task* t = n2->data;
+            cJSON* t_obj = cJSON_CreateObject();
+            cJSON_AddItemToObject(t_obj, "task_name", cJSON_CreateString(t->name));
+            cJSON_AddItemToObject(t_obj, "description", cJSON_CreateString(t->description));
+            cJSON_AddItemToArray(tasks_obj, t_obj);
+            n2 = n2->next;
+        }
+
+        n = n->next;
+    }
+
+    char* json_str = cJSON_Print(root);
+
+    FILE* file = fopen("test.json", "w");
+    fputs(json_str, file);
+    fclose(file);
+}  

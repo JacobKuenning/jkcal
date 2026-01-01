@@ -9,6 +9,7 @@ typedef struct {
     int date_day;
     int date_year;
     int date_epoch;
+    char date_string[11]; 
 } date;
 
 typedef enum{

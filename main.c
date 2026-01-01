@@ -50,5 +50,9 @@ int main(int argc, char** argv){
     }
 
     llist* master = json_to_llist("tasks.json");
+
+    // process commands and manipulate linked list
+
+    llist_to_json(master, "tasks.json");
 }
 

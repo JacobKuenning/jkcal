@@ -8,3 +8,4 @@
 char* file_to_string(char* filename);
 int file_size(FILE* file);
 llist* json_to_llist(char* filename);
+void llist_to_json(llist* ll, char* filename);
