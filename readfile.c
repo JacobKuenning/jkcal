@@ -80,7 +80,7 @@ void llist_to_json(llist* ll, char* filename){
 
     char* json_str = cJSON_Print(root);
 
-    FILE* file = fopen("test.json", "w");
+    FILE* file = fopen(filename, "w");
     fputs(json_str, file);
     fclose(file);
 }  
