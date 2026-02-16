@@ -4,7 +4,6 @@
 #include "llist.h"
 #include "timeconv.h"
 
-
 typedef struct {
     date dt;
     llist* tasks;
@@ -20,4 +19,7 @@ task* create_task(char* n, char* desc);
 
 // traverse list and print it
 void print(llist* l);
-void print_tasks(day* d);
+void print_day(day* d);
+
+void display_date(llist* days, date dt);
+void add_task(llist* days, date dt, char* name, char* description);

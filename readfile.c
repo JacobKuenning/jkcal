@@ -25,9 +25,9 @@ llist* json_to_llist(char* filename){
 
     // traverse array of days
     cJSON_ArrayForEach(day_json, root){ // for each day in array
-        cJSON* month_store = cJSON_GetObjectItemCaseSensitive(day_json, "date_month");
-        cJSON* day_store = cJSON_GetObjectItemCaseSensitive(day_json, "date_day");
-        cJSON* year_store = cJSON_GetObjectItemCaseSensitive(day_json, "date_year");
+        cJSON* month_store = cJSON_GetObjectItemCaseSensitive(day_json, "m");
+        cJSON* day_store = cJSON_GetObjectItemCaseSensitive(day_json, "d");
+        cJSON* year_store = cJSON_GetObjectItemCaseSensitive(day_json, "y");
 
         day* d = create_day(month_store->valueint, day_store->valueint, year_store->valueint);
         
@@ -58,9 +58,9 @@ void llist_to_json(llist* ll, char* filename){
     while(n){
         day* d = n->data;
         cJSON* day_obj = cJSON_CreateObject();
-        cJSON_AddItemToObject(day_obj, "date_month", cJSON_CreateNumber(d->dt.date_month));
-        cJSON_AddItemToObject(day_obj, "date_day", cJSON_CreateNumber(d->dt.date_day));
-        cJSON_AddItemToObject(day_obj, "date_year", cJSON_CreateNumber(d->dt.date_year));
+        cJSON_AddItemToObject(day_obj, "m", cJSON_CreateNumber(d->dt.m));
+        cJSON_AddItemToObject(day_obj, "d", cJSON_CreateNumber(d->dt.d));
+        cJSON_AddItemToObject(day_obj, "y", cJSON_CreateNumber(d->dt.y));
         cJSON_AddItemToArray(root, day_obj);
 
         cJSON* tasks_obj = cJSON_CreateArray();

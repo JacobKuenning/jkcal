@@ -37,6 +37,35 @@ void push_back(llist *l, void *v) {
     l->tail = n;
 }
 
+void insert(llist* l, int n, void* v){
+    node* new_node = create_node(v);
+    if (is_empty(l)) return;
+    if (n >= size(l) + 1){
+        push_back(l, v); return;
+    } 
+    if (n == 0){
+        new_node->next = l->head;
+        l->head->prev = new_node;
+        l->head = new_node;
+        return;
+    } 
+
+    node* node_ptr = l->head;
+    int counter = 0;
+    while(node_ptr){
+        if (counter == n){
+            node_ptr->prev->next = new_node;
+            new_node->next = node_ptr;
+            node_ptr->prev = new_node;
+            return;
+        }
+        counter++;
+        node_ptr = node_ptr->next;
+    }
+
+
+}
+
 void pop_back(llist* l){
     l->tail = l->tail->prev;
     l->tail->next = NULL;
@@ -86,4 +115,10 @@ void free_data(llist* l){
 
     l->head = NULL;
     l->tail = NULL;
+}
+
+bool is_empty(llist* l){
+    if (l->head)
+        return false;
+    return true;
 }
