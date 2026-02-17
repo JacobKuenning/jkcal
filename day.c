@@ -86,3 +86,14 @@ void display_date(llist* days, date dt){
     }
     printf("No tasks on that day\n");
 }
+
+void display_date_range(llist* days, daterange dtr){
+    node* n = days->head;
+    while(n){
+        day* d = n->data;
+        if (d->dt.epoch >= dtr.start && d->dt.epoch <= dtr.end){
+            print_day(d);
+        }
+        n = n->next;
+    }
+}

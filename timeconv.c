@@ -181,3 +181,44 @@ date next_weekday(int wd, int weeks){
     }
     return epoch_date_to_date(target_ed);
 }
+
+daterange string_to_daterange(char* str){
+    daterange dtr;
+    
+    char* start_str = str;
+    char* end_str;
+
+    // if string contains a hyphen
+    bool hyphen = false;
+
+    char* c = str;
+    while (*c){
+        if (*c == '-'){
+            hyphen = true;
+            *c = '\0';
+            end_str = ++c;
+            break;
+        }
+        c++;
+    }
+
+    // if theres no hyphen, the start date is set to today and end date is whatever the string was
+    if (!hyphen){
+        date today = todays_date();
+        dtr.start = today.epoch;
+        dtr.end = string_to_date(str).epoch;
+    } else {
+        dtr.start = string_to_date(start_str).epoch;
+        dtr.end= string_to_date(end_str).epoch;
+    }
+
+
+    // if they are put in wrong order, swap them
+    if (dtr.start > dtr.end){
+        int temp = dtr.start;
+        dtr.start = dtr.end;
+        dtr.end = temp;
+    }
+
+    return dtr;
+}

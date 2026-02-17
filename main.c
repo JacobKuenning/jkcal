@@ -79,6 +79,11 @@ int main(int argc, char** argv){
             else
                 display_date(master, string_to_date(kvp->value));
         }
+
+        else if (!strcmp(kvp->key, "-dtr")){
+            daterange dtr = string_to_daterange(kvp->value);
+            display_date_range(master, dtr);
+        }
         n = n->next;
     }    
 

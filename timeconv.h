@@ -15,6 +15,11 @@ typedef struct {
     char string[11]; 
 } date;
 
+typedef struct {
+    int start;
+    int end;
+} daterange;
+
 typedef enum {
     JANUARY,
     FEBRUARY,
@@ -34,6 +39,7 @@ int string_to_month(char* str);
 int string_to_weekday(char *str);
 date string_to_date(char* str);
 date create_date(int m, int d, int y);
+daterange string_to_daterange(char* str);
 int date_to_epoch_date(date dt);
 date epoch_date_to_date(int ed);
 int date_to_weekday(date dt);
