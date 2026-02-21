@@ -122,3 +122,46 @@ bool is_empty(llist* l){
         return false;
     return true;
 }
+
+void erase(llist* l, int i){
+    int s = size(l);
+
+    if (i < 0 || i >= s) return;
+
+    if (s == 1 && i == 0){
+        node* temp = l->head;
+        l->head = NULL; l->tail = NULL;
+        free(temp);
+        return;
+    }
+
+    if (i == s -1){
+        node* temp = l->tail;
+        l->tail = l->tail->prev;
+        l->tail->next = NULL;
+        free(temp);
+        return;
+    } 
+
+    if (i == 0){
+        node* temp = l->head;
+        l->head = l->head->next;
+        l->head->prev = NULL;
+        free(temp);
+        return;
+    }
+
+    node* n = l->head;
+    int counter = 0;
+
+    while(n){
+        if (counter == i){
+            n->next->prev = n->prev;
+            n->prev->next = n->next;
+
+            free(n);
+            return;
+        }
+        n = n->next; counter++;
+    }
+}

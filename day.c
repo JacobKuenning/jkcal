@@ -30,7 +30,7 @@ void print_day(day* d){
     int counter = 1;
     while(n != NULL){
         task* t = n->data;
-        printf("%d: %s\n   %s\n",counter, t->name, t->description);
+        printf("%s\n   %s\n", t->name, t->description);
         n = n->next;
     }
 }
@@ -77,10 +77,12 @@ void add_task(llist* days, date target_date, char* name, char* description){
 void display_date(llist* days, date dt){
     printf("Looking for tasks on %s\n", dt.string);
     node* n = days->head;
+    int counter = 1;
     while(n){
         day* d = n->data;
         if (d->dt.epoch == dt.epoch){
-            print_day(d);
+            printf("%d: ", counter);
+            print_day(d); counter++;
             return;
         }
         n = n->next;
@@ -90,49 +92,13 @@ void display_date(llist* days, date dt){
 
 void display_date_range(llist* days, daterange dtr){
     node* n = days->head;
+    int counter = 1;
     while(n){
         day* d = n->data;
         if (d->dt.epoch >= dtr.start && d->dt.epoch <= dtr.end){
-            print_day(d);
+            printf("%d: ", counter);
+            print_day(d); counter++;
         }
-        n = n->next;
+        n = n->next; 
     }
-}
-
-void edit_mode(llist* days, date dt){
-    display_date(days, dt);
-    printf("\nYou have entered EDIT mode. \n   delete x - delete element x\n   rename x - rename task x\n   description x - rewrite description x\n   exit - exit EDIT mode\n\n");
-    char buffer[256];
-    memset(buffer, 0, 256);
-
-    while(strcmp(buffer, "exit\n")){
-        memset(buffer, 0, 256);
-        fgets(buffer, sizeof(buffer), stdin);
-
-        char* command = buffer;
-        char* element = command;
-
-        while(*element && *element != ' '){
-            element++;
-        }
-        *element = '\0';
-        element++;
-
-        int n = atoi(element);
-
-        if (!strcmp(command, "delete")){
-
-        }
-        else if (!strcmp(command, "rename")){
-
-        } 
-        else if (!strcmp(command, "description")){
-
-        }
-    }
-
-
-
-
-
 }

@@ -24,4 +24,3 @@ void print_day(day* d);
 void display_date(llist* days, date dt);
 void display_date_range(llist* days, daterange dtr);
 void add_task(llist* days, date dt, char* name, char* description);
-void edit_mode(llist* days, date dt);

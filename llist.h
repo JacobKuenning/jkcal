@@ -43,3 +43,5 @@ void free_nodes(llist* l);
 void free_data(llist* l);
 
 bool is_empty(llist* l);
+
+void erase(llist* l, int n);
