@@ -65,30 +65,40 @@ int main(int argc, char** argv){
     // find days since epoch of local time day
     int days_since_epoch = epoch_date_today();
 
-    //debug_arguments(raw_text, flags, keyed_arguments);
     // process commands and manipulate linked list
-    node* n = keyed_arguments->head;
+    bool edit_flag = false;
+    node* n = flags->head;
     while(n){
-        key_value_pair* kvp = n->data;
-        // if key is dt
-        if (!strcmp(kvp->key, "-dt")){
-            date dt = string_to_date(kvp->value);
-
-            if (!is_empty(raw_text))
-                add_task(master, dt, name, description);
-            else
-                display_date(master, string_to_date(kvp->value));
+        if (!strcmp(n->data, "-edit")){
+            edit_flag = true;
         }
 
-        else if (!strcmp(kvp->key, "-dtr")){
-            daterange dtr = string_to_daterange(kvp->value);
-            display_date_range(master, dtr);
+        n=n->next;
+    }
+
+    key_value_pair* date_kvp = contains_kvp(keyed_arguments, "-dt");
+    key_value_pair* date_range_kvp = contains_kvp(keyed_arguments, "-dtr");
+    key_value_pair* remove_kvp = contains_kvp(keyed_arguments, "-rm");
+    if (date_kvp && date_range_kvp){
+        printf("Cannot use both dt and dtr key value pairs.\n");
+        return 0;
+    }
+
+    if (date_kvp){
+        date dt = string_to_date(date_kvp->value);
+        if (remove_kvp){
+
+        } else {
+            if (!is_empty(raw_text)) add_task(master, dt, name, description);
+            else display_date(master, dt);
         }
-        n = n->next;
-    }    
+    } else if (date_range_kvp){
+        daterange dtr = string_to_daterange(date_range_kvp->value);
+        if (remove_kvp){
 
-
-    // sort linked list as we add to it using the days since epoch
+        }
+        else display_date_range(master, dtr);
+    }
 
     llist_to_json(master, "tasks.json");
 }

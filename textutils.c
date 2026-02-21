@@ -1,5 +1,6 @@
 #include "textutils.h"
 
+
 key_value_pair create_key_value_pair(char* literal){
     key_value_pair kvp;
     char str[256];
@@ -43,4 +44,16 @@ void str_to_lower(char *s) {
         *s = (char)tolower((unsigned char)*s);
         s++;
     }
+}
+
+key_value_pair* contains_kvp(llist* list, char* key){
+    node* n = list->head;
+    while(n){
+        key_value_pair* kvp = n->data;
+        if (!strcmp(kvp->key, key)){
+            return kvp;
+        }
+        n = n->next;
+    }
+    return NULL;
 }
